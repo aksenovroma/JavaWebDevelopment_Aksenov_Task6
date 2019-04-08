@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://example.com/gemFund"
+        xmlns:tns="http://example.com/gemFund"
+        elementFormDefault="qualified">
+
+    <element name="gems">
+        <complexType>
+            <sequence>
+                <element name="gem"
+                         type="tns:Gem"
+                         maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="Gem">
+        <sequence>
+            <element name="preciousness" type="boolean"/>
+            <element name="origin" type="string"/>
+            <element name="visual" type="tns:Visual"/>
+            <element name="value" type="double" />
+        </sequence>
+        <attribute name="name" use="required" type="string"/>
+        <attribute name="ID" use="required" type="ID"/>
+    </complexType>
+    
+    <complexType name="Visual">
+        <sequence>
+            <element name="color" type="tns:Color"/>
+            <element name="transparency">
+                <simpleType>
+                    <restriction base="double">
+                        <minExclusive value="0"/>
+                        <maxExclusive value="100"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="faceting">
+                <simpleType>
+                    <restriction base="integer">
+                        <minInclusive value="4"/>
+                        <maxInclusive value="15"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+    
+    <simpleType name="Color">
+        <restriction base="string">
+            <enumeration value="red"/>
+            <enumeration value="green"/>
+            <enumeration value="yellow"/>
+            <enumeration value="blue"/>
+        </restriction>
+    </simpleType>
+
+</schema>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gems xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://example.com/gemFund"
+       xsi:schemaLocation="http://example.com/gemFund gemFund.xsd">
+
+    <gem name="Diamond" ID="d1">
+        <preciousness>true</preciousness>
+        <origin>Belarus</origin>
+        <visual>
+            <color>red</color>
+            <transparency>90</transparency>
+            <faceting>14</faceting>
+        </visual>
+        <value>3</value>
+    </gem>
+
+    <gem name="Turquoise" ID="t1">
+        <preciousness>false</preciousness>
+        <origin>Russia</origin>
+        <visual>
+            <color>blue</color>
+            <transparency>5</transparency>
+            <faceting>5</faceting>
+        </visual>
+        <value>0.5</value>
+    </gem>
+
+</gems>
