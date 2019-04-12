@@ -97,11 +97,12 @@ public class Gem {
     @Override
     public String toString() {
         return "Gem{" +
-                "preciousness=" + preciousness +
+                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", preciousness=" + preciousness +
                 ", origin='" + origin + '\'' +
                 ", visual=" + visual +
-                ", name='" + name + '\'' +
-                ", id='" + id + '\'' +
+                ", value=" + value +
                 '}';
     }
 
@@ -115,6 +116,7 @@ public class Gem {
         public enum Color {
             RED, GREEN, YELLOW, BLUE
         }
+
         private Color color;
         private double transparency;
         private int faceting;
@@ -158,7 +160,7 @@ public class Gem {
                     "color=" + color +
                     ", transparency=" + transparency +
                     ", faceting=" + faceting +
-                    '}';
+                    "}";
         }
     }
 }

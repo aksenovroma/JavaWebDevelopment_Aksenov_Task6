@@ -18,10 +18,10 @@ public class ValidatorXML {
     public static boolean validate(String fileName, String schemaName) {
         if (fileName != null && schemaName != null) {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            File schemaLocation = new File(schemaName);
+            File schemaFile = new File(schemaName);
 
             try {
-                Schema schema = factory.newSchema(schemaLocation);
+                Schema schema = factory.newSchema(schemaFile);
                 Validator validator = schema.newValidator();
                 Source source = new StreamSource(fileName);
                 validator.validate(source);

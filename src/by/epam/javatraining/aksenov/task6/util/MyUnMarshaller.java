@@ -8,7 +8,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class MyUnMarchaller {
+public class MyUnMarshaller {
     public static void unMarshal(String fileName) {
         try {
             JAXBContext jc = JAXBContext.newInstance(GemFund.class);
