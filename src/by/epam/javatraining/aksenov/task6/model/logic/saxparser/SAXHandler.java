@@ -52,15 +52,19 @@ public class SAXHandler extends DefaultHandler {
                 switch (color) {
                     case "RED": {
                         visual.setColor(Gem.Visual.Color.RED);
+                        break;
                     }
                     case "BLUE": {
                         visual.setColor(Gem.Visual.Color.BLUE);
+                        break;
                     }
                     case "YELLOW": {
                         visual.setColor(Gem.Visual.Color.YELLOW);
+                        break;
                     }
                     case "GREEN": {
                         visual.setColor(Gem.Visual.Color.GREEN);
+                        break;
                     }
                 }
             }

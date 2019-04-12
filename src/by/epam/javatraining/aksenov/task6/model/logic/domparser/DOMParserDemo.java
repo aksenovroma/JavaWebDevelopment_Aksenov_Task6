@@ -1,5 +1,6 @@
 package by.epam.javatraining.aksenov.task6.model.logic.domparser;
 
+import by.epam.javatraining.aksenov.task6.model.entity.GemFund;
 import by.epam.javatraining.aksenov.task6.util.ValidatorXML;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -22,14 +23,22 @@ public class DOMParserDemo {
 
     public static void main(String[] args) {
         if (ValidatorXML.validate(FILE_NAME, SCHEMA_NAME)) {
+            Document doc = null;
             try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-                Document doc = documentBuilder.parse(new File(FILE_NAME));
+                doc = documentBuilder.parse(new File(FILE_NAME));
             } catch (SAXException | ParserConfigurationException e) {
                 LOGGER.error(PARSE_ERROR + e);
             } catch (IOException e) {
                 LOGGER.error(IO_ERROR + e);
+            }
+
+            if (doc != null) {
+                DOMHandler domHandler = new DOMHandler();
+                domHandler.buildGenFund(doc);
+                GemFund gemFund = domHandler.getGemFund();
+                LOGGER.info(gemFund);
             }
         }
     }
