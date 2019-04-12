@@ -27,4 +27,16 @@
         <value>0.5</value>
     </gem>
 
+    <gem id="st1">
+        <name>Stone</name>
+        <preciousness>false</preciousness>
+        <origin>UK</origin>
+        <visual>
+            <color>blue</color>
+            <transparency>1</transparency>
+            <faceting>4</faceting>
+        </visual>
+        <value>0</value>
+    </gem>
+
 </gemFund>

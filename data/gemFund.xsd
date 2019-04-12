@@ -20,7 +20,13 @@
             <element name="preciousness" type="boolean"/>
             <element name="origin" type="string"/>
             <element name="visual" type="tns:Visual"/>
-            <element name="value" type="double" />
+            <element name="value">
+                <simpleType>
+                    <restriction base="double">
+                        <minInclusive value="0"/>
+                    </restriction>
+                </simpleType>
+            </element>
         </sequence>
         <attribute name="id" use="required" type="ID"/>
     </complexType>

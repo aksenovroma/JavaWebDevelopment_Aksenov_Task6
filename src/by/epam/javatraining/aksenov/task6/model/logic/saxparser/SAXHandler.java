@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
+import static by.epam.javatraining.aksenov.task6.model.logic.GemTagType.*;
+
 public class SAXHandler extends DefaultHandler {
     private static final Logger LOGGER = Logger.getRootLogger();
 
@@ -23,7 +25,7 @@ public class SAXHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attrs) {
         thisElement = qName;
         if (thisElement != null) {
-            if (thisElement.equals("gem")) {
+            if (thisElement.equals(GEM.getValue())) {
                 gem.setId(attrs.getValue("id"));
             }
         }
@@ -33,20 +35,20 @@ public class SAXHandler extends DefaultHandler {
     @Override
     public void characters(char[] ch, int start, int length) {
         if (thisElement != null) {
-            if (thisElement.equals("name")) {
+            if (thisElement.equals(NAME.getValue())) {
                 gem.setName(new String(ch, start, length));
             }
-            if (thisElement.equals("preciousness")) {
+            if (thisElement.equals(PRECIOUSNESS.getValue())) {
                 if (new String(ch, start, length).toLowerCase().equals("true")) {
                     gem.setPreciousness(true);
                 } else {
                     gem.setPreciousness(false);
                 }
             }
-            if (thisElement.equals("origin")) {
+            if (thisElement.equals(ORIGIN.getValue())) {
                 gem.setOrigin(new String(ch, start, length));
             }
-            if (thisElement.equals("color")) {
+            if (thisElement.equals(COLOR.getValue())) {
                 String color = new String(ch, start, length).toUpperCase();
 
                 switch (color) {
@@ -68,13 +70,13 @@ public class SAXHandler extends DefaultHandler {
                     }
                 }
             }
-            if (thisElement.equals("transparency")) {
+            if (thisElement.equals(TRANSPARENCY.getValue())) {
                 visual.setTransparency(Double.parseDouble(new String(ch, start, length)));
             }
-            if (thisElement.equals("faceting")) {
+            if (thisElement.equals(FACETING.getValue())) {
                 visual.setFaceting(Integer.parseInt(new String(ch, start, length)));
             }
-            if (thisElement.equals("value")) {
+            if (thisElement.equals(VALUE.getValue())) {
                 gem.setValue(Double.parseDouble(new String(ch, start, length)));
             }
         }
@@ -85,11 +87,11 @@ public class SAXHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) {
         thisElement = null;
-        if (qName.equals("visual")) {
+        if (qName.equals(VISUAL.getValue())) {
             gem.setVisual(visual);
             visual = new Gem.Visual();
         }
-        if (qName.equals("gem")) {
+        if (qName.equals(GEM.getValue())) {
             gemFund.add(gem);
             gem = new Gem();
         }

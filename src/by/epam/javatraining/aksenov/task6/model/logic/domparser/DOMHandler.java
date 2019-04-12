@@ -8,6 +8,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import static by.epam.javatraining.aksenov.task6.model.logic.GemTagType.*;
+
 public class DOMHandler {
     private static final Logger LOGGER = Logger.getRootLogger();
 
@@ -20,7 +22,7 @@ public class DOMHandler {
     public void buildGenFund(Document doc) {
         if (doc != null) {
             Element root = doc.getDocumentElement();
-            NodeList gemList = root.getElementsByTagName("gem");
+            NodeList gemList = root.getElementsByTagName(GEM.getValue());
             for (int i = 0; i < gemList.getLength(); i++) {
                 Element gemElement = (Element) gemList.item(i);
                 Gem gem = buildGem(gemElement);
@@ -36,19 +38,19 @@ public class DOMHandler {
         if (gemElement != null) {
             gem.setId(gemElement.getAttribute("id"));
 
-            gem.setName(getElementTextContext(gemElement, "name"));
+            gem.setName(getElementTextContext(gemElement, NAME.getValue()));
 
-            String preciousness = getElementTextContext(gemElement, "preciousness").toLowerCase();
+            String preciousness = getElementTextContext(gemElement, PRECIOUSNESS.getValue()).toLowerCase();
             if (preciousness.equals("true")) {
                 gem.setPreciousness(true);
             }
 
-            gem.setOrigin(getElementTextContext(gemElement, "origin"));
+            gem.setOrigin(getElementTextContext(gemElement, ORIGIN.getValue()));
 
             Gem.Visual visual = gem.getVisual();
-            Element visualElement = (Element) gemElement.getElementsByTagName("visual").item(0);
+            Element visualElement = (Element) gemElement.getElementsByTagName(VISUAL.getValue()).item(0);
 
-            String color = getElementTextContext(visualElement, "color").toUpperCase();
+            String color = getElementTextContext(visualElement, COLOR.getValue()).toUpperCase();
             switch (color) {
                 case "RED": {
                     visual.setColor(Gem.Visual.Color.RED);
@@ -67,13 +69,13 @@ public class DOMHandler {
                     break;
                 }
             }
-            double transparency = Double.parseDouble(getElementTextContext(visualElement, "transparency"));
+            double transparency = Double.parseDouble(getElementTextContext(visualElement, TRANSPARENCY.getValue()));
             visual.setTransparency(transparency);
 
-            int faceting = Integer.parseInt(getElementTextContext(visualElement, "faceting"));
+            int faceting = Integer.parseInt(getElementTextContext(visualElement, FACETING.getValue()));
             visual.setFaceting(faceting);
 
-            double value = Double.parseDouble(getElementTextContext(gemElement, "value"));
+            double value = Double.parseDouble(getElementTextContext(gemElement, VALUE.getValue()));
             gem.setValue(value);
 
             LOGGER.trace("gem '" + gem.getName() + "' created");
