@@ -3,17 +3,19 @@ package by.epam.javatraining.aksenov.task6.controller;
 import by.epam.javatraining.aksenov.task6.model.logic.factory.AbstractGemFundBuilder;
 import by.epam.javatraining.aksenov.task6.model.logic.factory.GemFundBuilderFactory;
 import by.epam.javatraining.aksenov.task6.util.ValidatorXML;
-import org.apache.log4j.Logger;
+import properties.ProjectProperties;
+
+import static properties.ProjectProperties.*;
 
 public class Main {
-    private static final String FILE_NAME = "data/gemFund.xml";
-    private static final String SCHEMA_NAME = "data/gemFund.xsd";
+    private static final String PROPERTIES_FILE = "src/properties/project.properties";
 
     public static void main(String[] args) {
+        ProjectProperties.loadProperties(PROPERTIES_FILE);
         GemFundBuilderFactory factory = new GemFundBuilderFactory();
-        AbstractGemFundBuilder builder = factory.createGemFundBuilder("sax");
-        if (ValidatorXML.validate(FILE_NAME, SCHEMA_NAME)) {
-            builder.buildGemFund(FILE_NAME);
+        AbstractGemFundBuilder builder = factory.createGemFundBuilder("dom");
+        if (ValidatorXML.validate(INPUT_FILE, SCHEMA_FILE)) {
+            builder.buildGemFund(INPUT_FILE);
         }
     }
 }

@@ -2,6 +2,7 @@ package by.epam.javatraining.aksenov.task6.util;
 
 import by.epam.javatraining.aksenov.task6.model.entity.Gem;
 import by.epam.javatraining.aksenov.task6.model.entity.GemFund;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -10,6 +11,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class MyMarshaller {
+    private static final Logger LOGGER = Logger.getRootLogger();
+
+    private static final String FILE_CREATED = "XML-file created";
+    private static final String FILE_ERROR = "XML-file didn't create";
+    private static final String JAXB_ERROR = "JAXB-context error";
+
     public static void marshal(String fileName) {
         try {
             JAXBContext context = JAXBContext.newInstance(GemFund.class);
@@ -26,11 +33,11 @@ public class MyMarshaller {
                 }
             };
             m.marshal(gF, new FileOutputStream(fileName));
-            System.out.println("XML-файл создан");
+            LOGGER.info(FILE_CREATED);
         } catch (FileNotFoundException e) {
-            System.out.println("XML-файл не может быть создан: " + e);
+            LOGGER.error(FILE_ERROR + e);
         } catch (JAXBException e) {
-            System.out.println("JAXB-контекст ошибочен " + e);
+            LOGGER.error(JAXB_ERROR + e);
         }
     }
 }

@@ -103,7 +103,7 @@ public class Gem {
                 ", origin='" + origin + '\'' +
                 ", visual=" + visual +
                 ", value=" + value +
-                '}';
+                "}\n";
     }
 
     @XmlRootElement

@@ -11,7 +11,10 @@ import org.w3c.dom.NodeList;
 import static by.epam.javatraining.aksenov.task6.model.logic.GemTagType.*;
 
 public class DOMHandler {
-    private static final Logger LOGGER = Logger.getRootLogger();
+    private static final Logger LOGGER = Logger.getLogger(DOMHandler.class);
+
+    private static final String GEMFUND_CREATE = "GemFund created";
+    private static final String GEM_CREATE = "Gem created: ";
 
     private GemFund gemFund = new GemFund();
 
@@ -28,7 +31,7 @@ public class DOMHandler {
                 Gem gem = buildGem(gemElement);
                 gemFund.add(gem);
             }
-            LOGGER.trace("gemFund created");
+            LOGGER.trace(GEMFUND_CREATE);
         }
     }
 
@@ -78,9 +81,8 @@ public class DOMHandler {
             double value = Double.parseDouble(getElementTextContext(gemElement, VALUE.getValue()));
             gem.setValue(value);
 
-            LOGGER.trace("gem '" + gem.getName() + "' created");
+            LOGGER.trace(GEM_CREATE + gem.getName());
         }
-
         return gem;
     }
 

@@ -9,7 +9,10 @@ import org.xml.sax.helpers.DefaultHandler;
 import static by.epam.javatraining.aksenov.task6.model.logic.GemTagType.*;
 
 public class SAXHandler extends DefaultHandler {
-    private static final Logger LOGGER = Logger.getRootLogger();
+    private static final Logger LOGGER = Logger.getLogger(SAXHandler.class);
+
+    private static final String START_PARSING = "Start parse XML";
+    private static final String END_PARSING = "\nParsing ended";
 
     private GemFund gemFund = new GemFund();
     private Gem gem = new Gem();
@@ -18,7 +21,7 @@ public class SAXHandler extends DefaultHandler {
 
     @Override
     public void startDocument() {
-        LOGGER.trace("Start parse XML");
+        LOGGER.trace(START_PARSING);
     }
 
     @Override
@@ -28,28 +31,29 @@ public class SAXHandler extends DefaultHandler {
             if (thisElement.equals(GEM.getValue())) {
                 gem.setId(attrs.getValue("id"));
             }
+            LOGGER.trace(qName);
         }
-        LOGGER.trace(qName);
     }
 
     @Override
     public void characters(char[] ch, int start, int length) {
         if (thisElement != null) {
+            String string = new String(ch, start, length);
             if (thisElement.equals(NAME.getValue())) {
-                gem.setName(new String(ch, start, length));
+                gem.setName(string);
             }
             if (thisElement.equals(PRECIOUSNESS.getValue())) {
-                if (new String(ch, start, length).toLowerCase().equals("true")) {
+                if (string.toLowerCase().equals("true")) {
                     gem.setPreciousness(true);
                 } else {
                     gem.setPreciousness(false);
                 }
             }
             if (thisElement.equals(ORIGIN.getValue())) {
-                gem.setOrigin(new String(ch, start, length));
+                gem.setOrigin(string);
             }
             if (thisElement.equals(COLOR.getValue())) {
-                String color = new String(ch, start, length).toUpperCase();
+                String color = string.toUpperCase();
 
                 switch (color) {
                     case "RED": {
@@ -71,17 +75,16 @@ public class SAXHandler extends DefaultHandler {
                 }
             }
             if (thisElement.equals(TRANSPARENCY.getValue())) {
-                visual.setTransparency(Double.parseDouble(new String(ch, start, length)));
+                visual.setTransparency(Double.parseDouble(string));
             }
             if (thisElement.equals(FACETING.getValue())) {
-                visual.setFaceting(Integer.parseInt(new String(ch, start, length)));
+                visual.setFaceting(Integer.parseInt(string));
             }
             if (thisElement.equals(VALUE.getValue())) {
-                gem.setValue(Double.parseDouble(new String(ch, start, length)));
+                gem.setValue(Double.parseDouble(string));
             }
+            LOGGER.trace(string);
         }
-
-        LOGGER.trace(new String(ch, start, length));
     }
 
     @Override
@@ -100,7 +103,7 @@ public class SAXHandler extends DefaultHandler {
 
     @Override
     public void endDocument() {
-        LOGGER.trace("\nParsing ended");
+        LOGGER.trace(END_PARSING);
     }
 
     public GemFund getGemFund() {

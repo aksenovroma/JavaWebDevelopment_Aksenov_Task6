@@ -3,16 +3,40 @@
 
 <log4j:configuration debug="true"
                      xmlns:log4j='http://jakarta.apache.org/log4j/'>
-    <appender name="MainLogFile" class="org.apache.log4j.FileAppender">
-        <param name="File" value="logs/report.log" />
-        <param name="Threshold" value="TRACE" />
+    <appender name="MainLogFile" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="logs/main-report.log" />
+        <param name="Threshold" value="INFO" />
+        <param name="MaxFileSize" value="10MB" />
+        <param name="MaxBackupIndex" value="5" />
         <layout class="org.apache.log4j.PatternLayout" >
             <param name="ConversionPattern" value="%m%n" />
         </layout>
     </appender>
 
+    <appender name="ParserAppender" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="logs/parser-report.log" />
+        <param name="Threshold" value="TRACE" />
+        <param name="MaxFileSize" value="10MB" />
+        <param name="MaxBackupIndex" value="5" />
+        <layout class="org.apache.log4j.PatternLayout" >
+            <param name="ConversionPattern" value="%m%n" />
+        </layout>
+    </appender>
+
+    <logger name="by.epam.javatraining.aksenov.task6.model.logic.domparser.DOMHandler">
+        <appender-ref ref="ParserAppender"/>
+    </logger>
+
+    <logger name="by.epam.javatraining.aksenov.task6.model.logic.saxparser.SAXHandler">
+        <appender-ref ref="ParserAppender"/>
+    </logger>
+
+    <logger name="by.epam.javatraining.aksenov.task6.model.logic.staxparser.StAXHandler">
+        <appender-ref ref="ParserAppender"/>
+    </logger>
+
     <root>
-        <level value="INFO" />
+        <level value="TRACE" />
         <appender-ref ref="MainLogFile" />
     </root>
 </log4j:configuration>

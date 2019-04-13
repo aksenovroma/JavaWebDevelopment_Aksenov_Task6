@@ -15,6 +15,10 @@ import java.io.IOException;
 public class ValidatorXML {
     private static final Logger LOGGER = Logger.getRootLogger();
 
+    private static final String VALID = "is valid";
+    private static final String NOT_VALID = " is not valid";
+    private static final String NULL_POINTER_ERROR = "File name or schema name is null";
+
     public static boolean validate(String fileName, String schemaName) {
         if (fileName != null && schemaName != null) {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -25,18 +29,18 @@ public class ValidatorXML {
                 Validator validator = schema.newValidator();
                 Source source = new StreamSource(fileName);
                 validator.validate(source);
-                LOGGER.info(fileName + " is valid");
+                LOGGER.info(fileName + VALID);
                 return true;
 
             } catch (SAXException e) {
-                LOGGER.error(fileName + " is not valid. " + e.getMessage());
+                LOGGER.error(fileName + NOT_VALID + e.getMessage());
 
             } catch (IOException e) {
-                LOGGER.error(e.getMessage() + " IOException");
+                LOGGER.error(e);
             }
             return false;
         }
-        LOGGER.error("File name or schema name is null");
+        LOGGER.error(NULL_POINTER_ERROR);
         return false;
     }
 }

@@ -3,6 +3,7 @@ package by.epam.javatraining.aksenov.task6.model.logic.staxparser;
 import by.epam.javatraining.aksenov.task6.model.entity.Gem;
 import by.epam.javatraining.aksenov.task6.model.entity.GemFund;
 import by.epam.javatraining.aksenov.task6.model.logic.GemTagType;
+import org.apache.log4j.Logger;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -14,8 +15,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static by.epam.javatraining.aksenov.task6.model.logic.GemTagType.*;
+import static javax.xml.stream.XMLStreamConstants.START_ELEMENT;
 
 public class StAXHandler {
+    private static final Logger LOGGER = Logger.getLogger(StAXHandler.class);
+
+    private static final String PARSE_ERROR = "StAX parsing error! ";
+    private static final String FILE_NOT_FOUND_ERROR = " File not found! ";
+    private static final String CLOSE_FILE_ERROR = " Impossible close file ";
+    private static final String UNKNOWN_ELEMENT_GEM = "Unknown element in tag Gem";
+    private static final String UNKNOWN_ELEMENT_VISUAL = "Unknown element in tag Visual";
+
     private GemFund gemFund = new GemFund();
     private XMLInputFactory inputFactory;
 
@@ -36,7 +46,7 @@ public class StAXHandler {
             reader = inputFactory.createXMLStreamReader(inputStream);
             while (reader.hasNext()) {
                 int type = reader.next();
-                if (type == XMLStreamConstants.START_ELEMENT) {
+                if (type == START_ELEMENT) {
                     name = reader.getLocalName();
                     if (GemTagType.valueOf(name.toUpperCase()) == GEM) {
                         Gem gem = buildGem(reader);
@@ -44,17 +54,17 @@ public class StAXHandler {
                     }
                 }
             }
-        } catch (XMLStreamException ex) {
-            System.err.println("StAX parsing error! " + ex.getMessage());
-        } catch (FileNotFoundException ex) {
-            System.err.println("File " + fileName + " not found! " + ex);
+        } catch (XMLStreamException e) {
+            LOGGER.error(PARSE_ERROR + e.getMessage());
+        } catch (FileNotFoundException e) {
+            LOGGER.error(fileName + FILE_NOT_FOUND_ERROR + e);
         } finally {
             try {
                 if (inputStream != null) {
                     inputStream.close();
                 }
             } catch (IOException e) {
-                System.err.println("Impossible close file "+fileName+" : "+e);
+                System.err.println(fileName + CLOSE_FILE_ERROR + e);
             }
         }
     }
@@ -68,7 +78,7 @@ public class StAXHandler {
         while (reader.hasNext()) {
             int type = reader.next();
             switch (type) {
-                case XMLStreamConstants.START_ELEMENT:
+                case START_ELEMENT:
                     name = reader.getLocalName();
                     switch (GemTagType.valueOf(name.toUpperCase())) {
                         case NAME: {
@@ -105,7 +115,7 @@ public class StAXHandler {
                     break;
             }
         }
-        throw new XMLStreamException("Unknown element in tag Gem");
+        throw new XMLStreamException(UNKNOWN_ELEMENT_GEM);
     }
 
     private Gem.Visual getXMLVisual(XMLStreamReader reader) throws XMLStreamException {
@@ -116,7 +126,7 @@ public class StAXHandler {
         while (reader.hasNext()) {
             type = reader.next();
             switch (type) {
-                case  XMLStreamConstants.START_ELEMENT: {
+                case START_ELEMENT: {
                     name = reader.getLocalName();
                     switch (GemTagType.valueOf(name.toUpperCase())) {
                         case COLOR: {
@@ -161,19 +171,14 @@ public class StAXHandler {
                 }
             }
         }
-        throw new XMLStreamException("Unknown element in tag Visual");
+        throw new XMLStreamException(UNKNOWN_ELEMENT_VISUAL);
     }
-
 
     private String getXMLText(XMLStreamReader reader) throws XMLStreamException {
         String text = null;
         if (reader.hasNext()) {
             reader.next();
-            if (!"".equals(reader.toString()) && reader.hasNext()){
-                text = reader.getText();
-            }
-
-
+            text = reader.getText();
         }
         return text;
     }
