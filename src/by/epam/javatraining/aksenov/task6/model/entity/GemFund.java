@@ -13,8 +13,27 @@ public class GemFund {
     public GemFund() {
     }
 
+    public GemFund(List<Gem> list) {
+        this.list = list;
+    }
+
     public boolean add(Gem gem) {
         return list.add(gem);
+    }
+
+    public Gem get(int index) {
+        if (index >= 0 && index < list.size()) {
+            return list.get(index);
+        }
+        return null;
+    }
+
+    public List<Gem> getAll() {
+        return list;
+    }
+
+    public int size() {
+        return list.size();
     }
 
     public void setList(List<Gem> list) {

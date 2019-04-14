@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         ProjectProperties.loadProperties(PROPERTIES_FILE);
         GemFundBuilderFactory factory = new GemFundBuilderFactory();
-        AbstractGemFundBuilder builder = factory.createGemFundBuilder("dom");
+        AbstractGemFundBuilder builder = factory.createGemFundBuilder("stax");
         if (ValidatorXML.validate(INPUT_FILE, SCHEMA_FILE)) {
             builder.buildGemFund(INPUT_FILE);
         }

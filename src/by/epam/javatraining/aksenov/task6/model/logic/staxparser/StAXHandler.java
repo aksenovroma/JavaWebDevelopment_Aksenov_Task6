@@ -64,7 +64,7 @@ public class StAXHandler {
                     inputStream.close();
                 }
             } catch (IOException e) {
-                System.err.println(fileName + CLOSE_FILE_ERROR + e);
+                LOGGER.error(fileName + CLOSE_FILE_ERROR + e);
             }
         }
     }
@@ -177,8 +177,9 @@ public class StAXHandler {
     private String getXMLText(XMLStreamReader reader) throws XMLStreamException {
         String text = null;
         if (reader.hasNext()) {
-            reader.next();
+
             text = reader.getText();
+            reader.next();
         }
         return text;
     }
