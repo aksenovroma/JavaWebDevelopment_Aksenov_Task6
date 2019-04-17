@@ -35,6 +35,7 @@ public class GemFundDOMBuilder extends AbstractGemFundBuilder {
             DOMHandler domHandler = new DOMHandler();
             domHandler.buildGenFund(doc);
             GemFund gemFund = domHandler.getGemFund();
+            setGemFund(gemFund);
             LOGGER.info(gemFund);
         }
     }

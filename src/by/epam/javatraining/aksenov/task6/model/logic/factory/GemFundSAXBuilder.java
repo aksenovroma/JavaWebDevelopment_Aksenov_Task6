@@ -32,6 +32,7 @@ public class GemFundSAXBuilder extends AbstractGemFundBuilder {
         }
 
         GemFund gemFund = handler.getGemFund();
+        setGemFund(gemFund);
         LOGGER.info(gemFund);
     }
 }

@@ -13,5 +13,9 @@ public abstract class AbstractGemFundBuilder {
         return gemFund;
     }
 
+    public void setGemFund(GemFund gemFund) {
+        this.gemFund = gemFund;
+    }
+
     abstract public void buildGemFund(String fileName);
 }

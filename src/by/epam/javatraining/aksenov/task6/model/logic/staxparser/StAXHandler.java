@@ -15,7 +15,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static by.epam.javatraining.aksenov.task6.model.logic.GemTagType.*;
-import static javax.xml.stream.XMLStreamConstants.START_ELEMENT;
 
 public class StAXHandler {
     private static final Logger LOGGER = Logger.getLogger(StAXHandler.class);
@@ -46,7 +45,7 @@ public class StAXHandler {
             reader = inputFactory.createXMLStreamReader(inputStream);
             while (reader.hasNext()) {
                 int type = reader.next();
-                if (type == START_ELEMENT) {
+                if (type == XMLStreamConstants.START_ELEMENT) {
                     name = reader.getLocalName();
                     if (GemTagType.valueOf(name.toUpperCase()) == GEM) {
                         Gem gem = buildGem(reader);
@@ -78,7 +77,7 @@ public class StAXHandler {
         while (reader.hasNext()) {
             int type = reader.next();
             switch (type) {
-                case START_ELEMENT:
+                case XMLStreamConstants.START_ELEMENT: {
                     name = reader.getLocalName();
                     switch (GemTagType.valueOf(name.toUpperCase())) {
                         case NAME: {
@@ -107,12 +106,14 @@ public class StAXHandler {
                         }
                     }
                     break;
-                case XMLStreamConstants.END_ELEMENT:
+                }
+                case XMLStreamConstants.END_ELEMENT: {
                     name = reader.getLocalName();
                     if (GemTagType.valueOf(name.toUpperCase()) == GEM) {
                         return gem;
                     }
                     break;
+                }
             }
         }
         throw new XMLStreamException(UNKNOWN_ELEMENT_GEM);
@@ -126,7 +127,7 @@ public class StAXHandler {
         while (reader.hasNext()) {
             type = reader.next();
             switch (type) {
-                case START_ELEMENT: {
+                case XMLStreamConstants.START_ELEMENT: {
                     name = reader.getLocalName();
                     switch (GemTagType.valueOf(name.toUpperCase())) {
                         case COLOR: {
@@ -177,9 +178,8 @@ public class StAXHandler {
     private String getXMLText(XMLStreamReader reader) throws XMLStreamException {
         String text = null;
         if (reader.hasNext()) {
-
-            text = reader.getText();
             reader.next();
+            text = reader.getText();
         }
         return text;
     }

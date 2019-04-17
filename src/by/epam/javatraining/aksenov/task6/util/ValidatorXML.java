@@ -15,7 +15,7 @@ import java.io.IOException;
 public class ValidatorXML {
     private static final Logger LOGGER = Logger.getRootLogger();
 
-    private static final String VALID = "is valid";
+    private static final String VALID = " is valid";
     private static final String NOT_VALID = " is not valid";
     private static final String NULL_POINTER_ERROR = "File name or schema name is null";
 
@@ -38,7 +38,6 @@ public class ValidatorXML {
             } catch (IOException e) {
                 LOGGER.error(e);
             }
-            return false;
         }
         LOGGER.error(NULL_POINTER_ERROR);
         return false;

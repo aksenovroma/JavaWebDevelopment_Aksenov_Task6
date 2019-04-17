@@ -12,7 +12,7 @@
             <transparency>90</transparency>
             <faceting>14</faceting>
         </visual>
-        <value>3</value>
+        <value>2</value>
     </gem>
 
     <gem id="t1">
@@ -36,7 +36,7 @@
             <transparency>1</transparency>
             <faceting>4</faceting>
         </visual>
-        <value>0</value>
+        <value>3.5</value>
     </gem>
 
 </gemFund>

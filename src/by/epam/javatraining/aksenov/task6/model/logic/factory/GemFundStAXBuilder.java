@@ -12,6 +12,7 @@ public class GemFundStAXBuilder extends AbstractGemFundBuilder {
         StAXHandler stAXHandler = new StAXHandler();
         stAXHandler.buildGemFund(fileName);
         GemFund gemFund = stAXHandler.getGemFund();
+        setGemFund(gemFund);
         LOGGER.info(gemFund);
     }
 }

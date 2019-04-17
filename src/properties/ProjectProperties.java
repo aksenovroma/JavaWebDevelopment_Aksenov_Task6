@@ -13,6 +13,7 @@ public class ProjectProperties {
 
     public static String INPUT_FILE;
     public static String SCHEMA_FILE;
+    public static String PARSER_TYPE;
 
     public static void loadProperties(String fileName) {
         FileInputStream fis;
@@ -24,6 +25,7 @@ public class ProjectProperties {
 
             INPUT_FILE = property.getProperty("filename.input");
             SCHEMA_FILE = property.getProperty("filename.schema");
+            PARSER_TYPE = property.getProperty("parser");
         } catch (IOException e) {
             LOGGER.error(PROPERTIES_ERROR + e);
         }

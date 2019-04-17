@@ -21,7 +21,7 @@ public class SAXHandler extends DefaultHandler {
 
     @Override
     public void startDocument() {
-        LOGGER.trace(START_PARSING);
+        LOGGER.info(START_PARSING);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class SAXHandler extends DefaultHandler {
 
     @Override
     public void endDocument() {
-        LOGGER.trace(END_PARSING);
+        LOGGER.info(END_PARSING);
     }
 
     public GemFund getGemFund() {

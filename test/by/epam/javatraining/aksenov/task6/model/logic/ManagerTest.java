@@ -12,21 +12,8 @@ public class ManagerTest {
 
     @BeforeMethod
     public void setGemFund() {
-        gemFund = new GemFund(){
-            {
-                Gem.Visual visual = new Gem.Visual(Gem.Visual.Color.GREEN, 90, 10);
-                Gem gem = new Gem(true, "Belarus", visual, 4, "Diamond", "d1");
-                this.add(gem);
 
-                visual = new Gem.Visual(Gem.Visual.Color.BLUE, 10, 15);
-                gem = new Gem(false, "Russia", visual, 2, "Coral", "c1");
-                this.add(gem);
 
-                visual = new Gem.Visual(Gem.Visual.Color.RED, 50, 12);
-                gem = new Gem(true, "USA", visual, 3, "Ruby", "r1");
-                this.add(gem);
-            }
-        };
     }
 
     @Test
